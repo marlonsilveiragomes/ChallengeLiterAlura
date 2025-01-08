@@ -9,6 +9,8 @@ import com.br.marlon.literalura.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LivroService {
 
@@ -39,7 +41,7 @@ public class LivroService {
         System.out.println("Número de Downloads: " + (dadosLivro.numeroDownload() != null
                 ? dadosLivro.numeroDownload()
                 : "Não informado"));
-        System.out.println("=======================================");
+        System.out.println("=======================================LITER ALURA=========================================");
     }
 
     public Autor obterAutor(DadosAutor dadosAutor) {
@@ -64,6 +66,10 @@ public class LivroService {
         Livro livro = new Livro(dadosLivro);
         livro.setAutor(autor);
         livroRepositorio.save(livro);  // Salva o livro no banco
+    }
+
+    public List<Livro> buscarLivrosPorIdioma(String idioma) {
+        return livroRepositorio.buscarLivrosPorIdioma(idioma);
     }
 }
 

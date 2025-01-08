@@ -34,7 +34,7 @@ public class Livro {
     }
 
 
-    // Getters e Setters
+
     public Long getId() {
         return id;
     }
@@ -93,10 +93,11 @@ public class Livro {
 
     @Override
     public String toString() {
-        return "Título: " + titulo + "\n" +
+        return
+                "Título: " + titulo + "\n" +
                 "Autor: " + autor + "\n" +
                 "Idioma: " + idioma + "\n" +
                 "Downloads: " + numeroDownloads + "\n" +
-                "----------------------------------------"+ "\n";
+                "-------------------------------------------------------------------------------"+ "\n";
     }
 }

@@ -17,7 +17,7 @@ public class Autor {
     private Double anoNascimento;
     private Double anoFalecimento;
 
-    @OneToMany(mappedBy = "autor")
+    @OneToMany(mappedBy = "autor", fetch = FetchType.EAGER)
     private List<Livro> livros = new ArrayList<>();
 
     public Autor() {}
@@ -28,7 +28,7 @@ public class Autor {
         this.anoFalecimento = anoFalecimento;
     }
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }
