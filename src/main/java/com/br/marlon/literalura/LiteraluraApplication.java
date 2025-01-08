@@ -1,19 +1,19 @@
 package com.br.marlon.literalura;
 
-import com.br.marlon.literalura.service.ConsumoAPI;
+
+import com.br.marlon.literalura.principal.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.security.Principal;
-
 @SpringBootApplication
 public class LiteraluraApplication implements CommandLineRunner {
 
-    @Autowired
-    private Principal principal;
+    private final Principal principal;
 
+    // Injeção da dependência Principal
+    @Autowired
     public LiteraluraApplication(Principal principal) {
         this.principal = principal;
     }
@@ -24,6 +24,6 @@ public class LiteraluraApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        principal.executar();
+        principal.exibeMenu(); // Agora deve funcionar corretamente
     }
 }

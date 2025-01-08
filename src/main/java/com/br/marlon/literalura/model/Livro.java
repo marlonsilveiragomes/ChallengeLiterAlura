@@ -2,6 +2,7 @@ package com.br.marlon.literalura.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 @Entity
 @Table(name = "Livros")
 public class Livro {
@@ -10,31 +11,30 @@ public class Livro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+
     private String titulo;
+
+    @ManyToOne
+    @JoinColumn(name = "autor")
+    private Autor autor;
+
+    private Double numeroDownloads;
 
     private String idioma;
 
-    private Integer anoNascimento;
+    @Column(name = "autor_nome")
+    private String autorNome;
 
-    private Integer anoFalecimento;
-
-    private Integer numeroDeDownloads;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Autor autor;
-
-    public Livro() {
+    public String getAutorNome() {
+        return autorNome;
     }
 
-    public Livro(DadosLivro dadosLivro) {
-        this.titulo = dadosLivro.titulo();
-        Autor autor = new Autor(dadosLivro.autores().get(0));
-        this.idioma = dadosLivro.idioma().get(0);
-        this.numeroDeDownloads = dadosLivro.numeroDeDownloads();
-
+    public void setAutorNome(String autorNome) {
+        this.autorNome = autorNome;
     }
 
+
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -51,38 +51,6 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public String getIdioma() {
-        return idioma;
-    }
-
-    public void setIdioma(String idioma) {
-        this.idioma = idioma;
-    }
-
-    public Integer getAnoNascimento() {
-        return anoNascimento;
-    }
-
-    public void setAnoNascimento(Integer anoNascimento) {
-        this.anoNascimento = anoNascimento;
-    }
-
-    public Integer getAnoFalecimento() {
-        return anoFalecimento;
-    }
-
-    public void setAnoFalecimento(Integer anoFalecimento) {
-        this.anoFalecimento = anoFalecimento;
-    }
-
-    public Integer getNumeroDeDownloads() {
-        return numeroDeDownloads;
-    }
-
-    public void setNumeroDeDownloads(Integer numeroDeDownloads) {
-        this.numeroDeDownloads = numeroDeDownloads;
-    }
-
     public Autor getAutor() {
         return autor;
     }
@@ -91,12 +59,44 @@ public class Livro {
         this.autor = autor;
     }
 
+    public String getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+
+    public Double getNumeroDownloads() {
+        return numeroDownloads;
+    }
+
+    public void setNumeroDownloads(Double numeroDownloads) {
+        this.numeroDownloads = numeroDownloads;
+    }
+
+    public Livro() {}
+
+    public Livro(DadosLivro dadosLivro) {
+        this.titulo = dadosLivro.titulo();
+        if (dadosLivro.autores() != null && !dadosLivro.autores().isEmpty()) {
+            DadosAutor dadosAutor = dadosLivro.autores().get(0);  // Primeiro autor
+            this.autor = new Autor(dadosAutor.autor(), dadosAutor.anoNascimento(), dadosAutor.anoFalecimento());
+            this.autorNome = dadosAutor.autor(); // Inicializa o autorNome
+        } else {
+            this.autor = new Autor("Autor não informado", null, null);
+            this.autorNome = "Autor não informado"; // Define autorNome como "não informado"
+        }
+        this.idioma = (dadosLivro.idioma() != null && !dadosLivro.idioma().isEmpty()) ? dadosLivro.idioma().get(0) : "Idioma não informado";
+        this.numeroDownloads = dadosLivro.numeroDownload() != null ? dadosLivro.numeroDownload() : 0.0;
+    }
+
     @Override
-        public String toString() {
-            return "Título: " + titulo + "\n" +
-                    "Autor: " + autor + "\n" +
-                    "Idioma: " + idioma + "\n" +
-                    "Downloads: " + numeroDeDownloads + "\n" +
-                    "----------------------------------------";
+    public String toString() {
+        return "Título: " + titulo + "\n" +
+                "Autor: " + autor + "\n" +
+                "Idioma: " + idioma + "\n" +
+                "Downloads: " + numeroDownloads + "\n" +
+                "----------------------------------------"+ "\n";
     }
 }

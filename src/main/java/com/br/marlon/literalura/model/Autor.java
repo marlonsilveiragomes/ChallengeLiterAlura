@@ -1,35 +1,34 @@
 package com.br.marlon.literalura.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "autores")
 public class Autor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String autor;
-    private Integer anoNascimento;
-    private Integer anoFalecimento;
-//    private String livro;
+    private Double anoNascimento;
+    private Double anoFalecimento;
 
-    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "autor")
     private List<Livro> livros = new ArrayList<>();
 
-    public Autor() {
+    public Autor() {}
+
+    public Autor(String autor, Double anoNascimento, Double anoFalecimento) {
+        this.autor = autor;
+        this.anoNascimento = anoNascimento;
+        this.anoFalecimento = anoFalecimento;
     }
 
-    public Autor(DadosAutor dadosAutor) {
-        this.autor = dadosAutor.autor();
-        this.anoNascimento = dadosAutor.anoNascimento();
-        this.anoFalecimento = dadosAutor.anoFalecimento();
-//        this.livro = dadosAutor.Livro();
-    }
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -46,29 +45,21 @@ public class Autor {
         this.autor = autor;
     }
 
-    public Integer getAnoNascimento() {
+    public Double getAnoNascimento() {
         return anoNascimento;
     }
 
-    public void setAnoNascimento(Integer anoNascimento) {
+    public void setAnoNascimento(Double anoNascimento) {
         this.anoNascimento = anoNascimento;
     }
 
-    public Integer getAnoFalescimento() {
+    public Double getAnoFalecimento() {
         return anoFalecimento;
     }
 
-    public void setAnoFalescimento(Integer anoFalescimento) {
-        this.anoFalecimento = anoFalescimento;
+    public void setAnoFalecimento(Double anoFalecimento) {
+        this.anoFalecimento = anoFalecimento;
     }
-
-//    public String getLivro() {
-//        return livro;
-//    }
-//
-//    public void setLivro(String livro) {
-//        this.livro = livro;
-//    }
 
     public List<Livro> getLivros() {
         return livros;
@@ -77,11 +68,9 @@ public class Autor {
     public void setLivros(List<Livro> livros) {
         this.livros = livros;
     }
-        @Override
-        public String toString() {
-            String anoNascimentoStr = anoNascimento != null ? anoNascimento.toString() : "Desconhecido";
-            String anoFalecimentoStr = anoFalecimento != null ? anoFalecimento.toString() : "Desconhecido";
 
-            return "Autor: " + autor + " (nascido em " + anoNascimentoStr + ", falecido em " + anoFalecimentoStr + ")";
-        }
+    @Override
+    public String toString() {
+        return "Autor: " + autor + ", Nascimento: " + anoNascimento + ", Falecimento: " + anoFalecimento;
     }
+}
