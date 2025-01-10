@@ -18,8 +18,7 @@ public class LiteraluraApplication implements CommandLineRunner {
         this.principal = principal;
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(LiteraluraApplication.class, args);
+    public static void main(String[] args) {        SpringApplication.run(LiteraluraApplication.class, args);
     }
 
     @Override

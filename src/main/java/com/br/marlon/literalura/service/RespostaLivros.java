@@ -11,7 +11,7 @@ public class RespostaLivros {
     private String previous;
     private List<DadosLivro> results;
 
-    // Getters e Setters
+
 
     public int getCount() {
         return count;
@@ -27,6 +27,7 @@ public class RespostaLivros {
 
     public void setNext(String next) {
         this.next = next;
+
     }
 
     public String getPrevious() {

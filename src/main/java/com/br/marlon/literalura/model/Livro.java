@@ -13,7 +13,6 @@ public class Livro {
 
 
     private String titulo;
-
     @ManyToOne
     @JoinColumn(name = "autor")
     private Autor autor;

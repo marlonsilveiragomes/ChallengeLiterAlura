@@ -55,8 +55,8 @@ public class Principal {
                     1 - Buscar Livros por Título
                     2 - Listar Livros no Banco de Dados
                     3 - Listar Autores no Banco de Dados
-                    4 - Buscar Autores Vivos
-                    5 - Listar Livros em Um Determinado Ano
+                    4 - Buscar Autores Vivos em Um determinado Ano:
+                    5 - Listar Livros por Idioma
                     
                     0 - Sair                                 
                     """;
